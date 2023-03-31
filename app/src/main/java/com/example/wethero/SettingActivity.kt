@@ -14,7 +14,9 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.example.wethero.network.RemoteSource
 import com.google.android.gms.location.*
+import kotlinx.coroutines.*
 
 class SettingActivity : AppCompatActivity() {
 
@@ -25,7 +27,6 @@ class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
-
 //        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
         val radioButton = findViewById<RadioButton>(R.id.gps)

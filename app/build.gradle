@@ -57,13 +57,14 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0-beta01'
     //Room
     implementation "androidx.room:room-ktx:2.5.0"
-    implementation "androidx.room:room-runtime:2.5.1"
-    annotationProcessor "androidx.room:room-compiler:2.5.1"
+    implementation "androidx.room:room-runtime:2.5.0"
+    androidTestImplementation "androidx.room:room-testing:2.5.0"
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     //GSON
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'pub.devrel:easypermissions:3.0.0'
     //Coroutines Dependencies
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
@@ -74,4 +75,14 @@ dependencies {
     implementation"androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
     //google services
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
+    implementation "androidx.navigation:navigation-fragment-ktx:2.2.0-rc03"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03"
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+
+    //annotation
+    implementation 'com.google.code.findbugs:annotations:3.0.1'
 }

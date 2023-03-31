@@ -1,4 +1,4 @@
-package com.example.wethero
+package com.example.wethero.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
+import com.example.wethero.R
 import com.example.wethero.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,12 +17,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.apply {
-            toggle= ActionBarDrawerToggle(this@MainActivity,drawerLayout,R.string.open,R.string.close)
+            toggle= ActionBarDrawerToggle(this@MainActivity,drawerLayout,
+                R.string.open,
+                R.string.close
+            )
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = "WeatherO"
-            navController.itemIconTintList = ContextCompat.getColorStateList(this@MainActivity, R.color.main1_blue)
+            navController.itemIconTintList = ContextCompat.getColorStateList(this@MainActivity,
+                R.color.main1_blue
+            )
             navController.setNavigationItemSelectedListener {
                 when(it.itemId){
                     R.id.home_nav -> {Toast.makeText(this@MainActivity,"home clicked",Toast.LENGTH_SHORT).show()}

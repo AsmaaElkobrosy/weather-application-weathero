@@ -4,7 +4,7 @@ import retrofit2.Response
 
 interface Reposatory {
 
-    suspend fun getAllStored():List<Weather>
-    suspend fun delete(weather: Weather)
-    suspend fun getAllWeathers(): Response<Weathers>
+    suspend fun getAllStored():List<Welcome>
+    suspend fun delete(welcome: Welcome)
+    suspend fun getAllWeathers( lat:Double,lon:Double,appid:String): Welcome
 }

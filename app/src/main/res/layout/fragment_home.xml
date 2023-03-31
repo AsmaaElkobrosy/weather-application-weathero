@@ -6,9 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splashscreen"
-    tools:context=".HomeFragment">
+    tools:context=".view.HomeFragment">
 
     <ImageView
+        android:id="@+id/icon_weather"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="50dp"
@@ -21,9 +22,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="156dp"
+        android:id="@+id/hourly_recycler"
+        android:layout_width="393dp"
+        android:layout_height="175dp"
+        android:layout_marginBottom="188dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
