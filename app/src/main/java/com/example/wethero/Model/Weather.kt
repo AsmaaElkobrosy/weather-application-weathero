@@ -12,12 +12,12 @@ data class Welcome (
     val timezone: String,
     val timezoneOffset: Long,
     val current: Current,
-    val hourly: List<Current>,
+    val hourly: List<Hourly>,
     val daily: List<Daily>
 )
 
 data class Current (
-    val dt: Long,
+    val dt: Int,
     val sunrise: Long? = null,
     val sunset: Long? = null,
     val temp: Double,
@@ -34,12 +34,16 @@ data class Current (
     val weather: List<Weather>,
     val pop: Long? = null
 )
-
+data class Hourly(
+    val dt: Int,
+    val weather: List<Weather>,
+    val temp: Double
+)
 data class Weather (
     val id: Long,
     val main: Main,
     val description: String,
-    val icon: Icon
+    val icon: String
 )
 
 enum class Description {
@@ -59,7 +63,7 @@ enum class Main {
 }
 
 data class Daily (
-    val dt: Long,
+    val dt: Int,
     val sunrise: Long,
     val sunset: Long,
     val moonrise: Long,
@@ -75,7 +79,6 @@ data class Daily (
     val windGust: Double,
     val weather: List<Weather>,
     val clouds: Long,
-    val pop: Long,
     val uvi: Double
 )
 

@@ -13,7 +13,7 @@ class HomeViewModel(private val repo:Reposatory): ViewModel() {
     private var _currentWeather= MutableLiveData <Welcome>()
     var currentWeather: LiveData<Welcome> =_currentWeather
 
-    fun setWeather(lat: Double,lon: Double,appid: String){
+    fun getWeather(lat: Double,lon: Double,appid: String){
         viewModelScope.launch(Dispatchers.IO){
             _currentWeather.postValue(repo.getAllWeathers(lat,lon,appid))
         }

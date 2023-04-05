@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.constraintlayout.motion.widget.Debug.getLoc
 import androidx.core.content.ContextCompat
 import com.example.wethero.R
 import com.example.wethero.databinding.ActivityMainBinding
@@ -14,6 +15,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+//        val lat= intent.getStringExtra("lat")
+//        val lon= intent.getStringExtra("lon")
+//        if (lat != null && lon !=null) {
+//            HomeFragment.getLoc(lat,lon)
+//        }
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.apply {

@@ -76,13 +76,9 @@ dependencies {
     //google services
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
-
+    //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.2.0-rc03"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03"
-
     //glide
     implementation 'com.github.bumptech.glide:glide:4.14.2'
-
-    //annotation
-    implementation 'com.google.code.findbugs:annotations:3.0.1'
 }

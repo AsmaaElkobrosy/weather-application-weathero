@@ -9,6 +9,7 @@ class Repo private constructor(
     lateinit var welcome: Welcome
 
     companion object{
+        @Volatile
         private var instance:Repo?=null
         fun getInstance(
             remoteSource: RemoteSource
@@ -23,11 +24,11 @@ class Repo private constructor(
         }
     }
     override suspend fun getAllStored(): List<Welcome> {
-        TODO("Not yet implemented")
+        return emptyList()
     }
 
     override suspend fun delete(welcome: Welcome) {
-        TODO("Not yet implemented")
+
     }
 
     override suspend fun getAllWeathers(lat: Double, lon: Double, appid: String): Welcome {

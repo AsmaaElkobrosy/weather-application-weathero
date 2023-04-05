@@ -15,6 +15,8 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.wethero.network.RemoteSource
+import com.example.wethero.view.HomeFragment
+import com.example.wethero.view.MainActivity
 import com.google.android.gms.location.*
 import kotlinx.coroutines.*
 
@@ -33,6 +35,20 @@ class SettingActivity : AppCompatActivity() {
         radioButton.setOnClickListener {
            Toast.makeText(applicationContext,"${latText} and ${longText}",Toast.LENGTH_SHORT).show()
             println(latText+"and"+longText)
+            val intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra("lat",latText )
+//            intent.putExtra("lon",longText )
+//
+            startActivity(intent)
+//            val mFragmentManager = supportFragmentManager
+//            val mFragmentTransaction = mFragmentManager.beginTransaction()
+//            val mFragment = HomeFragment()
+
+//            val mBundle = Bundle()
+//            mBundle.putString("lat",latText )
+//            mBundle.putString("lon",longText  )
+//            mFragment.arguments = mBundle
+//            mFragmentTransaction.add(R.id., mFragment).commit()
         }
 
 
@@ -45,6 +61,8 @@ class SettingActivity : AppCompatActivity() {
             val mLastLocation: Location? = locationResult.lastLocation
             latText= mLastLocation?.latitude.toString()
             longText = mLastLocation?.longitude.toString()
+            // Declaring fragment manager from making data
+            // transactions using the custom fragment
         }
     }
 
