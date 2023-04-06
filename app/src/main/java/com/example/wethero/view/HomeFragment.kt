@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.wethero.Model.Repo
 import com.example.wethero.databinding.FragmentHomeBinding
 import com.example.wethero.network.RemoteSource
+import com.example.wethero.viewmodel.DailyAdapter
 import com.example.wethero.viewmodel.HomeViewModel
 import com.example.wethero.viewmodel.HomeViewModelFactory
 import com.example.wethero.viewmodel.HoursAdapter
@@ -73,6 +74,12 @@ class HomeFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
             }
+            binding.dailyRecycler.apply {
+                this.adapter = DailyAdapter(it.daily)
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+            }
+
             var timeHour = getCurrentTime(it.current.dt.toInt())
             binding.currentTime.text = timeHour
 

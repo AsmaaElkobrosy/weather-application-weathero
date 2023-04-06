@@ -1,13 +1,14 @@
 package com.example.wethero.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.constraintlayout.motion.widget.Debug.getLoc
 import androidx.core.content.ContextCompat
 import com.example.wethero.R
+import com.example.wethero.ui.SettingActivity
 import com.example.wethero.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -40,10 +41,12 @@ class MainActivity : AppCompatActivity() {
             )
             navController.setNavigationItemSelectedListener {
                 when(it.itemId){
-                    R.id.home_nav -> {Toast.makeText(this@MainActivity,"home clicked",Toast.LENGTH_SHORT).show()}
+                    R.id.home_nav -> {val intent = Intent(this@MainActivity, MainActivity::class.java)
+                        startActivity(intent)}
                     R.id.fav_nav -> {Toast.makeText(this@MainActivity,"fav clicked",Toast.LENGTH_SHORT).show()}
                     R.id.alert_nav -> {Toast.makeText(this@MainActivity,"alert clicked",Toast.LENGTH_SHORT).show()}
-                    R.id.settings_nav -> {Toast.makeText(this@MainActivity,"setting clicked",Toast.LENGTH_SHORT).show()}
+                    R.id.settings_nav -> {val intent = Intent(this@MainActivity, SettingActivity::class.java)
+                        startActivity(intent)}
                 }
                 true
             }

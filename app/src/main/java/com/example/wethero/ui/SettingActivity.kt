@@ -1,4 +1,4 @@
-package com.example.wethero
+package com.example.wethero.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,8 +14,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.example.wethero.network.RemoteSource
-import com.example.wethero.view.HomeFragment
+import com.example.wethero.R
 import com.example.wethero.view.MainActivity
 import com.google.android.gms.location.*
 import kotlinx.coroutines.*
@@ -34,7 +33,7 @@ class SettingActivity : AppCompatActivity() {
         val radioButton = findViewById<RadioButton>(R.id.gps)
         radioButton.setOnClickListener {
            Toast.makeText(applicationContext,"${latText} and ${longText}",Toast.LENGTH_SHORT).show()
-            println(latText+"and"+longText)
+//            println(latText+"and"+longText)
             val intent = Intent(this, MainActivity::class.java)
 //            intent.putExtra("lat",latText )
 //            intent.putExtra("lon",longText )

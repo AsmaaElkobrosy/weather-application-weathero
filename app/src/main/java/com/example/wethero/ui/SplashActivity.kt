@@ -1,9 +1,9 @@
-package com.example.wethero
+package com.example.wethero.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.wethero.network.RemoteSource
+import com.example.wethero.R
 import kotlinx.coroutines.*
 
 class SplashActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
         CoroutineScope(Dispatchers.Main).launch {
             delay(4000L)
-            startActivity(Intent(this@SplashActivity,SettingActivity::class.java))
+            startActivity(Intent(this@SplashActivity, SettingActivity::class.java))
             finish()
         }
 
