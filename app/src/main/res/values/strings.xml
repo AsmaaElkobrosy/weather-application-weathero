@@ -11,4 +11,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="celsius"> °C </string>
 </resources>

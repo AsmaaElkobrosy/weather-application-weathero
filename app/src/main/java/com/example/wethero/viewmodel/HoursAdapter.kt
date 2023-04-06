@@ -13,6 +13,7 @@ import com.example.wethero.Model.Hourly
 import com.example.wethero.Model.Weather
 import com.example.wethero.Model.Weathers
 import com.example.wethero.databinding.HoursRowBinding
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,7 +65,10 @@ class HoursAdapter ( var current: List<Hourly>):
 
         var timeHour = getCurrentTime(currentObj.dt.toInt())
 //        Glide.with(context).load("https://openweathermap.org/img/wn/${currentObj.icon}@2x.png").into(holder.binding.iconImgHour)
-        holder.binding.tempHourly.text = currentObj.temp.toString()+ "C"
+        val df = DecimalFormat("#.##")
+        var temprature  =df.format(currentObj.temp- 273.15f)
+
+        holder.binding.tempHourly.text = temprature.toString()+ " °C"
         holder.binding.dateTimeHours.text= timeHour
     }
 

@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.wethero.Model.Daily
 import com.example.wethero.databinding.DayRowBinding
 import com.example.wethero.databinding.HoursRowBinding
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,11 +35,16 @@ class DailyAdapter ( var current: List<Daily>):
 
     @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
+
+
         val currentObj=current.get(position)
+        val df = DecimalFormat("#.##")
+        var temprature  =df.format(currentObj.temp.day - 273.15f)
+
         Glide.with(context).load("https://openweathermap.org/img/wn/${currentObj.weather?.get(0)?.icon}@2x.png").into(holder.binding.iconImgDaily)
         var timeHour = getCurrentTime(currentObj.dt.toInt())
         holder.binding.dtDaily.text= timeHour
-        holder.binding.tempDaily.text = currentObj.temp.day.toString()+ "C"
+        holder.binding.tempDaily.text = temprature.toString()+ " °C"
         holder.binding.humidityDaily.text = currentObj.humidity.toString()+ "%"
 
 

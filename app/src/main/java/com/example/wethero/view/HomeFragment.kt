@@ -16,6 +16,8 @@ import com.example.wethero.viewmodel.DailyAdapter
 import com.example.wethero.viewmodel.HomeViewModel
 import com.example.wethero.viewmodel.HomeViewModelFactory
 import com.example.wethero.viewmodel.HoursAdapter
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,8 +61,13 @@ class HomeFragment : Fragment() {
 
 
         myViewModel.currentWeather.observe(viewLifecycleOwner){
+            val df = DecimalFormat("#.##")
+            var temprature  =df.format(it.current.temp - 273.15f)
+
+
+
             binding.cityText.text = it.timezone
-            binding.TempraturDegree.text = it.current.temp.toString()
+            binding.TempraturDegree.text = temprature.toString() + " °C"
             binding.cloudsText.text = it.current.clouds.toString()
             binding.humidityText.text = it.current.humidity.toString()
             binding.pressureText.text = it.current.pressure.toString()
