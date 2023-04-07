@@ -29,6 +29,7 @@ class FavouriteAdapter ( var current: List<Daily>):
     }
 
     override fun onBindViewHolder(holder: FavViewHolder, position: Int) {
+        val currentObj=current.get(position)
 
     }
 }

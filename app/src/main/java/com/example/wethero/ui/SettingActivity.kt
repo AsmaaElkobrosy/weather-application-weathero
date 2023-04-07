@@ -15,6 +15,7 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.wethero.R
+import com.example.wethero.view.HomeFragment
 import com.example.wethero.view.MainActivity
 import com.google.android.gms.location.*
 import kotlinx.coroutines.*
@@ -31,23 +32,23 @@ class SettingActivity : AppCompatActivity() {
 //        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
         val radioButton = findViewById<RadioButton>(R.id.gps)
+        val mFragmentManager = supportFragmentManager
+        val mFragmentTransaction = mFragmentManager.beginTransaction()
+        val mFragment = HomeFragment()
         radioButton.setOnClickListener {
            Toast.makeText(applicationContext,"${latText} and ${longText}",Toast.LENGTH_SHORT).show()
 //            println(latText+"and"+longText)
-            val intent = Intent(this, MainActivity::class.java)
+//            val intent = Intent(this, MainActivity::class.java)
 //            intent.putExtra("lat",latText )
 //            intent.putExtra("lon",longText )
 //
-            startActivity(intent)
-//            val mFragmentManager = supportFragmentManager
-//            val mFragmentTransaction = mFragmentManager.beginTransaction()
-//            val mFragment = HomeFragment()
+//            startActivity(intent)
 
-//            val mBundle = Bundle()
-//            mBundle.putString("lat",latText )
-//            mBundle.putString("lon",longText  )
-//            mFragment.arguments = mBundle
-//            mFragmentTransaction.add(R.id., mFragment).commit()
+            val mBundle = Bundle()
+            mBundle.putString("lat",latText )
+            mBundle.putString("lon",longText  )
+            mFragment.arguments = mBundle
+            mFragmentTransaction.add(R.id.Settingui, mFragment).commit()
         }
 
 

@@ -1,60 +1,97 @@
 package com.example.wethero.favouritesViewModel
 
-import android.os.Bundle
+import android.location.Address
+import android.location.Geocoder
 import androidx.fragment.app.Fragment
+
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import androidx.annotation.NonNull
 import com.example.wethero.R
+import com.example.wethero.databinding.FragmentMapsBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import java.io.IOException
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MapsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MapsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    lateinit var binding: FragmentMapsBinding
+    lateinit var mapFragment: SupportMapFragment
+    lateinit var mMaps :GoogleMap
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val callback = OnMapReadyCallback { googleMap ->
+
+        val egypt = LatLng(26.820553, 30.802498)
+        googleMap.addMarker(MarkerOptions().position(egypt).title("Marker in Egypt"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(egypt))
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        binding= FragmentMapsBinding.inflate(inflater,container,false)
+        mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(callback)
+        mapInitialize()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MapsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MapsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun mapInitialize() {
+        val locationRequest :LocationRequest = LocationRequest()
+        locationRequest.setInterval(500)
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        locationRequest.setSmallestDisplacement(16F)
+        locationRequest.setFastestInterval(3000)
+
+        binding.searchTextFav.setOnEditorActionListener (TextView.OnEditorActionListener{ v, actionId, event ->
+            if(actionId== EditorInfo.IME_ACTION_SEARCH
+                || actionId == EditorInfo.IME_ACTION_DONE){
+                goToSearchLoaction()
             }
+            return@OnEditorActionListener true
+            false
+        })
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
     }
+
+    private fun goToSearchLoaction() {
+        var searchLocation = binding.searchTextFav.text.toString()
+        var geoCoder :Geocoder = Geocoder(requireContext())
+        var list: List<Address> = ArrayList()
+        try {
+            list = geoCoder.getFromLocationName(searchLocation,1) as List<Address>
+        }catch (e: IOException){
+            e.printStackTrace()
+        }
+        if(list.size>0){
+            var address:Address = list.get(0)
+            var location: String = address.adminArea
+            var latitude :Double = address.latitude
+            var longitude :Double = address.longitude
+//            gotoLatLng(latitude,longitude,17f)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+    }
+
+
 }

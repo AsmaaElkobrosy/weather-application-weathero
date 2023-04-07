@@ -47,8 +47,10 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
+        val bundle = arguments
+        val lat = bundle?.getString("lat")
+        val lon = bundle?.getString("lon")
+    println(lat+"   "+lon)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         myViewModelFactory = HomeViewModelFactory(Repo.getInstance(RemoteSource.getINSTANCE(), LocalSource(requireContext())))
@@ -56,7 +58,9 @@ class HomeFragment : Fragment() {
             ViewModelProvider(this.requireActivity(), myViewModelFactory)[HomeViewModel::class.java]
 
         if(checkConnection()){
-            myViewModel.getWeather(33.44 ,-94.04,"ca2b01baf69d772e70734ccfdc4cb9cd")
+//            if (lat != null && lon !=null) {
+                myViewModel.getWeather( 31.2001 ,29.9187,"ca2b01baf69d772e70734ccfdc4cb9cd")
+//            }
         }else{
             myViewModel.getWeatherFromRoom()
         }
