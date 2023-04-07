@@ -1,6 +1,7 @@
 package com.example.wethero.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.wethero.Model.Repo
 import com.example.wethero.databinding.FragmentHomeBinding
+import com.example.wethero.localdatabase.LocalSource
 import com.example.wethero.network.RemoteSource
 import com.example.wethero.viewmodel.DailyAdapter
 import com.example.wethero.viewmodel.HomeViewModel
@@ -33,6 +35,7 @@ class HomeFragment : Fragment() {
     lateinit var latitude:String
     lateinit var longtude:String
 
+
 //    private var _binding: FragmentHomeBinding? = null
 //    private val binding get() = _binding!!
 
@@ -46,12 +49,11 @@ class HomeFragment : Fragment() {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
-        myViewModelFactory = HomeViewModelFactory(Repo.getInstance(RemoteSource.getINSTANCE()))
+        myViewModelFactory = HomeViewModelFactory(Repo.getInstance(RemoteSource.getINSTANCE(), LocalSource(requireContext())))
         myViewModel =
             ViewModelProvider(this.requireActivity(), myViewModelFactory)[HomeViewModel::class.java]
-    myViewModel.getWeather(33.44 ,-94.04,"ca2b01baf69d772e70734ccfdc4cb9cd")
+    //myViewModel.getWeather(33.44 ,-94.04,"ca2b01baf69d772e70734ccfdc4cb9cd")
+        myViewModel.getWeatherFromRoom()
 //        myViewModel.currentWeather.observe(viewLifecycleOwner) {
 //            hoursAdapter =
 //            this.adapter =hoursAdapter.notifyDataSetChanged()
