@@ -32,4 +32,10 @@ class HomeViewModel(private val repo:Reposatory): ViewModel() {
             _currentWeather.postValue(repo.getAllWeathers(lat,lon,appid))
         }
     }
+
+    fun insertWeather(welcome:Welcome){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.insert(welcome)
+        }
+    }
 }

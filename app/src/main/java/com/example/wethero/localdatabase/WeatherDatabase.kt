@@ -1,12 +1,12 @@
 package com.example.wethero.localdatabase
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.example.wethero.Model.Weather
+import com.example.wethero.Model.Welcome
 
-@Database(entities = [Weather::class], version = 1)
+@Database(entities = arrayOf(Welcome::class), version = 1)
+@TypeConverters (Converter::class)
 abstract class WeatherDatabase: RoomDatabase() {
     abstract fun getWeatherDao():WeatherDao
     companion object{

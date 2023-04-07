@@ -36,9 +36,11 @@ class Repo private constructor(
         localSource.insert(welcome)
     }
 
-    override suspend fun delete(welcome: Welcome) {
-        localSource.delete(welcome)
-    }
+
+
+//    override suspend fun delete(welcome: Welcome) {
+//        localSource.delete(welcome)
+//    }
 
 
     override suspend fun getAllWeathers(lat: Double, lon: Double, appid: String): Welcome {

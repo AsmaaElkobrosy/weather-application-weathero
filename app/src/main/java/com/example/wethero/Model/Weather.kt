@@ -7,7 +7,7 @@ import java.io.Serializable
 @Entity(tableName="weather_details")
 
 data class Welcome (
-    val lat: Double,
+    @PrimaryKey val lat: Double,
     val lon: Double,
     val timezone: String,
     val timezoneOffset: Long,

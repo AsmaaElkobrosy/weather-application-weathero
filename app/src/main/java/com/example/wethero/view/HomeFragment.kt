@@ -2,11 +2,13 @@ package com.example.wethero.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -52,8 +54,13 @@ class HomeFragment : Fragment() {
         myViewModelFactory = HomeViewModelFactory(Repo.getInstance(RemoteSource.getINSTANCE(), LocalSource(requireContext())))
         myViewModel =
             ViewModelProvider(this.requireActivity(), myViewModelFactory)[HomeViewModel::class.java]
-    //myViewModel.getWeather(33.44 ,-94.04,"ca2b01baf69d772e70734ccfdc4cb9cd")
-        myViewModel.getWeatherFromRoom()
+
+        if(checkConnection()){
+            myViewModel.getWeather(33.44 ,-94.04,"ca2b01baf69d772e70734ccfdc4cb9cd")
+        }else{
+            myViewModel.getWeatherFromRoom()
+        }
+//
 //        myViewModel.currentWeather.observe(viewLifecycleOwner) {
 //            hoursAdapter =
 //            this.adapter =hoursAdapter.notifyDataSetChanged()
@@ -63,11 +70,10 @@ class HomeFragment : Fragment() {
 
 
         myViewModel.currentWeather.observe(viewLifecycleOwner){
+
+            myViewModel.insertWeather(it)
             val df = DecimalFormat("#.##")
             var temprature  =df.format(it.current.temp - 273.15f)
-
-
-
             binding.cityText.text = it.timezone
             binding.TempraturDegree.text = temprature.toString() + " °C"
             binding.cloudsText.text = it.current.clouds.toString()
@@ -108,4 +114,10 @@ class HomeFragment : Fragment() {
         sdf.timeZone= TimeZone.getDefault()
         return sdf.format(date)
     }
+    fun checkConnection(): Boolean {
+            val cm = context?.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetwork = cm.activeNetworkInfo
+            return if (activeNetwork != null) {true}else{false}}
+
+
 }

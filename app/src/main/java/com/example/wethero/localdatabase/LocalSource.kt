@@ -5,7 +5,7 @@ import com.example.wethero.Model.Welcome
 
 class LocalSource(context: Context):LocalSourceInterface{
     private val dao:WeatherDao by lazy {
-        val db:WeatherDatabase=WeatherDatabase.getInstance(context)
+        val db:WeatherDatabase= WeatherDatabase.getInstance(context)
         db.getWeatherDao()
     }
     override suspend fun insert(welcome: Welcome) {
@@ -16,8 +16,8 @@ class LocalSource(context: Context):LocalSourceInterface{
         return dao.getWeatherDetails()
     }
 
-    override suspend fun delete(welcome: Welcome) {
-        dao.deleteWeather(welcome)
-    }
+//    override suspend fun delete() {
+//        dao.deleteWeather()
+//    }
 
 }

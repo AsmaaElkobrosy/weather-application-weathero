@@ -6,6 +6,6 @@ interface Reposatory {
 
     suspend fun getAllStored():Welcome
     suspend fun insert(welcome: Welcome)
-    suspend fun delete(welcome: Welcome)
+//    suspend fun delete(welcome: Welcome)
     suspend fun getAllWeathers( lat:Double,lon:Double,appid:String): Welcome
 }
