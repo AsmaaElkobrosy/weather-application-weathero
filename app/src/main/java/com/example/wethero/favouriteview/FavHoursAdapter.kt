@@ -1,46 +1,38 @@
-package com.example.wethero.viewmodel
+package com.example.wethero.favouriteview
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.wethero.Model.Current
 import com.example.wethero.Model.Hourly
 import com.example.wethero.Model.Weather
-import com.example.wethero.Model.Weathers
 import com.example.wethero.databinding.HoursRowBinding
+import com.example.wethero.viewmodel.HoursAdapter
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HoursAdapter ( var current: List<Hourly>):
-    RecyclerView.Adapter<HoursAdapter.WeatherViewHolder>() {
+class FavHoursAdapter ( var current: List<Hourly>):
+    RecyclerView.Adapter<FavHoursAdapter.HoursViewHolder>() {
     lateinit var context: Context
     lateinit var binding: HoursRowBinding
 
 //    lateinit var current :Current
 
-    class WeatherViewHolder (var binding :HoursRowBinding): RecyclerView.ViewHolder(binding.root){
+    class HoursViewHolder (var binding :HoursRowBinding): RecyclerView.ViewHolder(binding.root){
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoursViewHolder {
         context=parent.context
         val inflater: LayoutInflater =parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding= HoursRowBinding.inflate(inflater,parent,false)
-        return WeatherViewHolder(binding)
+        return HoursViewHolder(binding)
     }
-
-    override fun getItemCount(): Int {
-        return current.size
-    }
-
-
     @SuppressLint("SimpleDateFormat")
-    override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavHoursAdapter.HoursViewHolder, position: Int) {
         val currentObj=current.get(position)
 
         Glide.with(context).load("https://openweathermap.org/img/wn/${currentObj.weather?.get(0)?.icon}@2x.png").into(holder.binding.iconImgHour)
@@ -54,6 +46,9 @@ class HoursAdapter ( var current: List<Hourly>):
         holder.binding.dateTimeHours.text= timeHour
     }
 
+    override fun getItemCount(): Int {
+        return current.size
+    }
 
     @SuppressLint("SimpleDateFormat")
     fun getCurrentTime(dt: Int) : String{

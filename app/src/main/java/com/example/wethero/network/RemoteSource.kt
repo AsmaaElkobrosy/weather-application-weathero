@@ -22,7 +22,7 @@ class RemoteSource :RemoteSourceInterface{
     }
 
     override suspend fun getAllWeatherDetails(lat: Double, lon: Double, appid: String): Response<Welcome> {
-        val response = api.getWeatherDetails("26.8205517","30.8024967")
+        val response = api.getWeatherDetails(lat.toString(),lon.toString())
         Log.i("TAG","getAllWeatherDetails"+ (response.body()?.current?.weather?.get(0)?.description))
 
         return response

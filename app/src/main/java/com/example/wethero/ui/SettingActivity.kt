@@ -23,8 +23,8 @@ import kotlinx.coroutines.*
 class SettingActivity : AppCompatActivity() {
 
     lateinit var mFusedLocationClient: FusedLocationProviderClient
-    lateinit var latText:String
-    lateinit var longText:String
+    var latText:String = ""
+    var longText:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,23 +32,23 @@ class SettingActivity : AppCompatActivity() {
 //        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
         val radioButton = findViewById<RadioButton>(R.id.gps)
-        val mFragmentManager = supportFragmentManager
-        val mFragmentTransaction = mFragmentManager.beginTransaction()
-        val mFragment = HomeFragment()
         radioButton.setOnClickListener {
            Toast.makeText(applicationContext,"${latText} and ${longText}",Toast.LENGTH_SHORT).show()
-//            println(latText+"and"+longText)
-//            val intent = Intent(this, MainActivity::class.java)
-//            intent.putExtra("lat",latText )
-//            intent.putExtra("lon",longText )
-//
-//            startActivity(intent)
+            println(latText+"and"+longText)
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("lat",latText )
+            intent.putExtra("lon",longText )
 
-            val mBundle = Bundle()
-            mBundle.putString("lat",latText )
-            mBundle.putString("lon",longText  )
-            mFragment.arguments = mBundle
-            mFragmentTransaction.add(R.id.Settingui, mFragment).commit()
+            startActivity(intent)
+//            val mFragmentManager = supportFragmentManager
+//            val mFragmentTransaction = mFragmentManager.beginTransaction()
+//            val mFragment = HomeFragment()
+//
+//            val mBundle = Bundle()
+//            mBundle.putString("lat",latText )
+//            mBundle.putString("lon",longText  )
+//            mFragment.arguments = mBundle
+//            mFragmentTransaction.add(R.id.Settingui, mFragment).commit()
         }
 
 

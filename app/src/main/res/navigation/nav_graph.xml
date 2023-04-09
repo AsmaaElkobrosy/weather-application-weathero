@@ -6,7 +6,7 @@
     app:startDestination="@id/favFragment">
     <fragment
         android:id="@+id/favFragment"
-        android:name="com.example.wethero.favouriteview.FavFragment"
+        android:name="com.example.wethero.Model.favouriteview.FavFragment"
         android:label="fragment_fav"
         tools:layout="@layout/fragment_fav" >
         <action
@@ -21,5 +21,26 @@
         <action
             android:id="@+id/action_mapsFragment_to_favFragment"
             app:destination="@id/favFragment" />
+        <argument
+            android:name="lat"
+            app:argType="string" />
+        <argument
+            android:name="lon"
+            app:argType="string" />
+        <argument
+            android:name="country"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_mapsFragment_to_detailsFavFragment"
+            app:destination="@id/detailsFavFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFavFragment"
+        android:name="com.example.wethero.favouriteview.DetailsFavFragment"
+        android:label="fragment_details_fav"
+        tools:layout="@layout/fragment_details_fav" >
+        <action
+            android:id="@+id/action_detailsFavFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
 </navigation>
