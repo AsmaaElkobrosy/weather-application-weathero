@@ -15,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.wethero.Model.Repo
+import com.example.wethero.Model.favouriteview.FavFragment
+import com.example.wethero.R
 import com.example.wethero.databinding.FragmentHomeBinding
 import com.example.wethero.localdatabase.LocalSource
 import com.example.wethero.network.RemoteSource
@@ -39,6 +41,7 @@ class HomeFragment : Fragment() {
     lateinit var hoursAdapter: HoursAdapter
     lateinit var latitude:String
     lateinit var longtude:String
+    lateinit var mainActivity: MainActivity
 
 
 //    private var _binding: FragmentHomeBinding? = null
@@ -50,6 +53,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainActivity = MainActivity()
         val bundle = arguments
         val lat = bundle?.getString("lat")
         val lon = bundle?.getString("lon")
@@ -58,6 +62,13 @@ class HomeFragment : Fragment() {
     println("i'm home"+lat+"   "+lon)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        binding.goToFav.setOnClickListener{
+            var favFragment = FavFragment()
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.fragmentContainerHome, favFragment!!)
+            fragmentTransaction.commit()
+        }
         myViewModelFactory = HomeViewModelFactory(Repo.getInstance(RemoteSource.getINSTANCE(), LocalSource(requireContext())))
         myViewModel = ViewModelProvider(this.requireActivity(), myViewModelFactory)[HomeViewModel::class.java]
 
@@ -126,6 +137,8 @@ if(it.lat!=0.0&&it.lon!=0.0){
             val cm = context?.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork = cm.activeNetworkInfo
             return if (activeNetwork != null) {true}else{false}}
+
+
 
 
 }

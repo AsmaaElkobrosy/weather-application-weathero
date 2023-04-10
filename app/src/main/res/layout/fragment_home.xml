@@ -7,11 +7,22 @@
     android:layout_height="match_parent"
     android:background="@drawable/splashscreen"
     tools:context=".view.HomeFragment"
+    android:id="@+id/hom_frag"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/go_to_fav"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/add_to_fav_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.077"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <ImageView

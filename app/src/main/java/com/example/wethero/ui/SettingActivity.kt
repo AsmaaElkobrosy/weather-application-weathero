@@ -35,20 +35,20 @@ class SettingActivity : AppCompatActivity() {
         radioButton.setOnClickListener {
            Toast.makeText(applicationContext,"${latText} and ${longText}",Toast.LENGTH_SHORT).show()
             println(latText+"and"+longText)
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("lat",latText )
-            intent.putExtra("lon",longText )
-
-            startActivity(intent)
-//            val mFragmentManager = supportFragmentManager
-//            val mFragmentTransaction = mFragmentManager.beginTransaction()
-//            val mFragment = HomeFragment()
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra("lat",latText )
+//            intent.putExtra("lon",longText )
 //
-//            val mBundle = Bundle()
-//            mBundle.putString("lat",latText )
-//            mBundle.putString("lon",longText  )
-//            mFragment.arguments = mBundle
-//            mFragmentTransaction.add(R.id.Settingui, mFragment).commit()
+//            startActivity(intent)
+            val mFragmentManager = supportFragmentManager
+            val mFragmentTransaction = mFragmentManager.beginTransaction()
+            val mFragment = HomeFragment()
+
+            val mBundle = Bundle()
+            mBundle.putString("lat",latText )
+            mBundle.putString("lon",longText  )
+            mFragment.arguments = mBundle
+            mFragmentTransaction.add(R.id.Settingui, mFragment).commit()
         }
 
 

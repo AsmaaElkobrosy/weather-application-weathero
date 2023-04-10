@@ -8,6 +8,7 @@
     android:background="@drawable/splashscreen"
     tools:context=".Model.favouriteview.FavFragment">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerfav"
         android:layout_width="409dp"

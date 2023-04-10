@@ -43,4 +43,13 @@
             android:id="@+id/action_detailsFavFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.wethero.view.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_favFragment"
+            app:destination="@id/favFragment" />
+    </fragment>
 </navigation>

@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.apply {
             toggle= ActionBarDrawerToggle(this@MainActivity,drawerLayout,
                 R.string.open,
@@ -47,13 +48,14 @@ class MainActivity : AppCompatActivity() {
             toggle.syncState()
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = "WeatherO"
+//            supportActionBar?.setIcon(getDrawable(R.id.fav_icon_weather))
             navView.itemIconTintList = ContextCompat.getColorStateList(this@MainActivity,
                 R.color.main1_blue
             )
             navView.setNavigationItemSelectedListener {
                 when(it.itemId){
                     R.id.home_nav -> {Toast.makeText(this@MainActivity,"Home clicked",Toast.LENGTH_SHORT).show()}
-                    R.id.fav_nav -> { replaceFragment(FavFragment())}
+//                    R.id.fav_nav -> { replaceFragment(FavFragment())}
                     R.id.alert_nav -> {Toast.makeText(this@MainActivity,"alert clicked",Toast.LENGTH_SHORT).show()}
                     R.id.settings_nav -> {val intent = Intent(this@MainActivity, SettingActivity::class.java)
                         startActivity(intent)}
@@ -76,10 +78,10 @@ class MainActivity : AppCompatActivity() {
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }*/
-    fun replaceFragment(fragment: Fragment?) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainerHome, fragment!!)
-        fragmentTransaction.commit()
-    }
+//    fun replaceFragment(fragment: Fragment?) {
+//        val fragmentManager = supportFragmentManager
+//        val fragmentTransaction = fragmentManager.beginTransaction()
+//        fragmentTransaction.replace(R.id.fragmentContainerHome, fragment!!)
+//        fragmentTransaction.commit()
+//    }
 }
