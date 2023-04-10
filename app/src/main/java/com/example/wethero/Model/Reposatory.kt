@@ -6,11 +6,11 @@ import retrofit2.Response
 
 interface Reposatory {
 
-    suspend fun getAllStored():Welcome
+     fun getAllStored():Flow<Welcome>
     suspend fun insert(welcome: Welcome)
-    suspend fun getAllWeathers( lat:Double,lon:Double,appid:String): Welcome
+    suspend fun getAllWeathers( lat:Double,lon:Double,appid:String): Flow<Response<Welcome>>
 
-    suspend fun getAllFav():List<FavRecyclerModel>
+     fun getAllFav():Flow<List<FavRecyclerModel>>
 
     suspend fun insertFav(favModel: FavRecyclerModel)
     suspend fun deleteFav(favModel: FavRecyclerModel):Int

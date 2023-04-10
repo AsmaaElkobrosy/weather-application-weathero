@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.wethero.Model.Repo
@@ -21,6 +22,7 @@ import com.example.wethero.viewmodel.DailyAdapter
 import com.example.wethero.viewmodel.HomeViewModel
 import com.example.wethero.viewmodel.HomeViewModelFactory
 import com.example.wethero.viewmodel.HoursAdapter
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -55,8 +57,11 @@ class DetailsFavFragment : Fragment() {
 
         myViewModel.getWeather( lat!!.toDouble() ,lon!!.toDouble(),"ca2b01baf69d772e70734ccfdc4cb9cd")
 
+viewLifecycleOwner.lifecycleScope.launch{
 
-        myViewModel.currentWeather.observe(viewLifecycleOwner){
+
+        myViewModel.currentWeather.collect{
+            if (it.lat!=0.0&&it.lon!=0.0){
             val df = DecimalFormat("#.##")
             var temprature  =df.format(it.current.temp - 273.15f)
             binding.favTempraturDegree.text = temprature.toString() + " °C"
@@ -82,7 +87,7 @@ class DetailsFavFragment : Fragment() {
             var timeHour = getCurrentTime(it.current.dt.toInt())
             binding.favCurrentTime.text = timeHour
 
-        }
+        }}}
         return root
     }
     @SuppressLint("SimpleDateFormat")

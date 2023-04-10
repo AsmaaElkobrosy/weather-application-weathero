@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wethero.Model.Repo
@@ -26,14 +27,15 @@ import com.example.wethero.localdatabase.LocalSource
 import com.example.wethero.network.RemoteSource
 import com.example.wethero.view.HomeFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 
 
-class FavFragment : Fragment() , FavClickInterface {
+class FavFragment : Fragment(), FavClickInterface {
 
-    lateinit var fab:FloatingActionButton
+    lateinit var fab: FloatingActionButton
     lateinit var homeFragment: HomeFragment
-    lateinit var userlist :ArrayList<FavRecyclerModel>
-    lateinit var listener:FavClickInterface
+    lateinit var userlist: ArrayList<FavRecyclerModel>
+    lateinit var listener: FavClickInterface
     lateinit var binding: FragmentFavBinding
     lateinit var favViewModel: FavViewModel
     lateinit var favViewModelFactory: FavViewModelFactory
@@ -46,10 +48,10 @@ class FavFragment : Fragment() , FavClickInterface {
     ): View? {
         binding = FragmentFavBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        favViewModelFactory= FavViewModelFactory(
+        favViewModelFactory = FavViewModelFactory(
             Repo.getInstance(RemoteSource.getINSTANCE(), LocalSource(requireContext()))
         )
-        favViewModel= ViewModelProvider(this,favViewModelFactory).get(FavViewModel::class.java)
+        favViewModel = ViewModelProvider(this, favViewModelFactory).get(FavViewModel::class.java)
 
         favViewModel.getFavFromRoom()
 
@@ -58,25 +60,30 @@ class FavFragment : Fragment() , FavClickInterface {
         val lat = bundle?.getString("lat")
         val lon = bundle?.getString("lon")
         val city = bundle?.getString("city")
-        println(lat+"   "+lon+" "+city)
+        println(lat + "   " + lon + " " + city)
 
 //        if(checkConnection()){
 //            if (lat != null && lon !=null) {
 //                homeFragment.getWeather( lat.toDouble() ,lon.toDouble(),"ca2b01baf69d772e70734ccfdc4cb9cd")
 //            }
 //        }else{
-        var favModel= FavRecyclerModel(lat.toString(),lon.toString(),city.toString())
-        favAdapter= FavouriteAdapter(this)
-        if(lat!= null && lon!= null) {
+        var favModel = FavRecyclerModel(lat.toString(), lon.toString(), city.toString())
+        favAdapter = FavouriteAdapter(this)
+        if (lat != null && lon != null) {
             favViewModel.insertFav(favModel)
         }
         binding.recyclerfav.apply {
-            this.adapter=favAdapter
-            layoutManager= LinearLayoutManager(context)
+            this.adapter = favAdapter
+            layoutManager = LinearLayoutManager(context)
         }
-        favViewModel.currentWeather.observe(viewLifecycleOwner){
-            favAdapter.submitList(it)
-            favAdapter.notifyDataSetChanged()
+        viewLifecycleOwner.lifecycleScope.launch() {
+            favViewModel.currentWeather.collect() {
+                if (it.isNullOrEmpty()) {
+                } else {
+                    favAdapter.submitList(it)
+                    favAdapter.notifyDataSetChanged()
+                }
+            }
         }
 
 
@@ -94,10 +101,17 @@ class FavFragment : Fragment() , FavClickInterface {
             mFragmentTransaction.add(R.id.fav_fragment, mFragment).commit()
         })
     }
+
     fun checkConnection(): Boolean {
-        val cm = context?.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm =
+            context?.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
-        return if (activeNetwork != null) {true}else{false}}
+        return if (activeNetwork != null) {
+            true
+        } else {
+            false
+        }
+    }
 
     override fun onFavClick(lat: String, lon: String) {
         val mFragmentManager = requireActivity().supportFragmentManager
@@ -105,8 +119,8 @@ class FavFragment : Fragment() , FavClickInterface {
         val mFragment = DetailsFavFragment()
 
         val mBundle = Bundle()
-        mBundle.putString("lat",lat )
-        mBundle.putString("lon",lon  )
+        mBundle.putString("lat", lat)
+        mBundle.putString("lon", lon)
         mFragment.arguments = mBundle
         mFragmentTransaction.add(R.id.fav_fragment, mFragment).commit()
     }

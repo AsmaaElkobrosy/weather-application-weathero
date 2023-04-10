@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WeatherDao {
     @Query("SELECT * FROM weather_details")
-    suspend fun getWeatherDetails():Welcome
+     fun getWeatherDetails():Flow<Welcome>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertWeather(welcome: Welcome)
@@ -18,7 +18,7 @@ interface WeatherDao {
     //favourites
 
     @Query("SELECT * FROM fav_Room")
-    suspend fun getAllFavourites(): List<FavRecyclerModel>
+     fun getAllFavourites(): Flow<List<FavRecyclerModel>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertFav(favModel: FavRecyclerModel)

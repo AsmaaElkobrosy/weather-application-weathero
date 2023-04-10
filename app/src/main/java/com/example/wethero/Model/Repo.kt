@@ -6,6 +6,8 @@ import com.example.wethero.localdatabase.LocalSource
 import com.example.wethero.network.RemoteSource
 import com.example.wethero.network.RemoteSourceInterface
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 
 class Repo private constructor(
     var remoteSource: RemoteSource,
@@ -31,7 +33,7 @@ class Repo private constructor(
         }
     }
 
-    override suspend fun getAllStored(): Welcome {
+    override fun getAllStored(): Flow<Welcome> {
         return localSource.getAllStored()
     }
 
@@ -46,21 +48,21 @@ class Repo private constructor(
 //    }
 
 
-    override suspend fun getAllWeathers(lat: Double, lon: Double, appid: String): Welcome {
-        val response = remoteSource.getAllWeatherDetails(lat,lon,appid)
-        if (response.isSuccessful){
-            response.body().also {
-                if (it != null) {
-                    welcome = it
-                }
-            }
-        }else{
-            Log.i("TAG", "getAllWeathers: ${response.code()} ${response.body()}")
-        }
-        return welcome
+    override suspend fun getAllWeathers(lat: Double, lon: Double, appid: String): Flow<Response<Welcome>> {
+//        val response =
+//        if (response.isSuccessful){
+//            response.body().also {
+//                if (it != null) {
+//                    welcome = it
+//                }
+//            }
+//        }else{
+//            Log.i("TAG", "getAllWeathers: ${response.code()} ${response.body()}")
+//        }
+        return remoteSource.getAllWeatherDetails(lat,lon,appid)
     }
 
-    override suspend fun getAllFav(): List<FavRecyclerModel> {
+    override fun getAllFav(): Flow<List<FavRecyclerModel>> {
         return localSource.getAllFav()
     }
 

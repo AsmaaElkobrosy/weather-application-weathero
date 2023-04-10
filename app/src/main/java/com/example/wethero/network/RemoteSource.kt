@@ -3,6 +3,10 @@ package com.example.wethero.network
 import android.util.Log
 import com.example.wethero.Model.Weather
 import com.example.wethero.Model.Welcome
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class RemoteSource :RemoteSourceInterface{
@@ -21,11 +25,15 @@ class RemoteSource :RemoteSourceInterface{
         }
     }
 
-    override suspend fun getAllWeatherDetails(lat: Double, lon: Double, appid: String): Response<Welcome> {
-        val response = api.getWeatherDetails(lat.toString(),lon.toString())
-        Log.i("TAG","getAllWeatherDetails"+ (response.body()?.current?.weather?.get(0)?.description))
 
-        return response
+    override suspend fun getAllWeatherDetails(lat: Double, lon: Double, appid: String): Flow<Response<Welcome>> {
+//        val response = api.getWeatherDetails(lat.toString(),lon.toString())
+//        GlobalScope.launch {
+//
+////        Log.i("TAG","getAllWeatherDetails"+ (response.body()?.current?.weather?.get(0)?.description))
+//        }
+
+        return  flow{ emit(api.getWeatherDetails(lat.toString(),lon.toString()))}
     }
 
 }

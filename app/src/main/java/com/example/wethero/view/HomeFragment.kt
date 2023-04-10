@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.wethero.Model.Repo
@@ -20,6 +22,7 @@ import com.example.wethero.viewmodel.DailyAdapter
 import com.example.wethero.viewmodel.HomeViewModel
 import com.example.wethero.viewmodel.HomeViewModelFactory
 import com.example.wethero.viewmodel.HoursAdapter
+import kotlinx.coroutines.launch
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -56,8 +59,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         myViewModelFactory = HomeViewModelFactory(Repo.getInstance(RemoteSource.getINSTANCE(), LocalSource(requireContext())))
-        myViewModel =
-            ViewModelProvider(this.requireActivity(), myViewModelFactory)[HomeViewModel::class.java]
+        myViewModel = ViewModelProvider(this.requireActivity(), myViewModelFactory)[HomeViewModel::class.java]
 
 //        if(checkConnection()){
            if (lat != null && lon !=null) {
@@ -74,9 +76,9 @@ class HomeFragment : Fragment() {
 
 //        }
 
-
-        myViewModel.currentWeather.observe(viewLifecycleOwner){
-
+viewLifecycleOwner.lifecycleScope.launch{
+        myViewModel.currentWeather.collect{
+if(it.lat!=0.0&&it.lon!=0.0){
             myViewModel.insertWeather(it)
             val df = DecimalFormat("#.##")
             var temprature  =df.format(it.current.temp - 273.15f)
@@ -104,7 +106,7 @@ class HomeFragment : Fragment() {
             var timeHour = getCurrentTime(it.current.dt.toInt())
             binding.currentTime.text = timeHour
 
-        }
+        }}}
 
         return root
     }

@@ -14,11 +14,11 @@ class LocalSource(context: Context):LocalSourceInterface{
         dao.insertWeather(welcome)
     }
 
-    override suspend fun getAllStored(): Welcome{
+    override  fun getAllStored(): Flow<Welcome>{
         return dao.getWeatherDetails()
     }
 
-    override suspend fun getAllFav(): List<FavRecyclerModel> {
+    override fun getAllFav(): Flow<List<FavRecyclerModel>> {
         return dao.getAllFavourites()
     }
 

@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalSourceInterface {
         suspend fun insert(welcome: Welcome)
-        suspend fun getAllStored():Welcome
+         fun getAllStored():Flow<Welcome>
 
-        suspend fun getAllFav(): List<FavRecyclerModel>
+         fun getAllFav(): Flow<List<FavRecyclerModel>>
 
         suspend fun insertFav(favModel: FavRecyclerModel)
         suspend fun deleteFav(favModel: FavRecyclerModel):Int
